@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>广州小造电子商务有限公司</title>
+  <style>
+    :root{
+      --bg:#fff4a8;
+      --pink:#ff3ea5;
+      --cyan:#00d2ff;
+      --yellow:#ffe500;
+      --black:#111;
+      --white:#fff;
+      --dot: rgba(17,17,17,.12);
+      --shadow: 8px 8px 0 var(--black);
+      --shadow2: 5px 5px 0 var(--black);
+      --radius: 18px;
+      --radius2: 14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: ui-sans-serif, -apple-system, "PingFang SC","Microsoft YaHei", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 15px 15px, var(--dot) 2px, transparent 2px) 0 0/26px 26px,
+        linear-gradient(135deg, rgba(255,62,165,.20), rgba(0,210,255,.18)),
+        var(--bg);
+      color:var(--black);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* 顶栏 */
+    header{
+      position:sticky;top:0;z-index:1000;
+      background: rgba(255,244,168,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid var(--black);
+    }
+    .top{
+      height:78px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      background: var(--white);
+      border:3px solid var(--black);
+      border-radius: var(--radius);
+      padding:10px 12px;
+      box-shadow: var(--shadow2);
+    }
+    .logo{
+      width:46px;height:46px;border-radius: 14px;
+      background: linear-gradient(135deg, var(--pink), var(--cyan));
+      border:3px solid var(--black);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;color:#fff;letter-spacing:1px;
+      text-shadow: 2px 2px 0 rgba(0,0,0,.25);
+    }
+    .brand .name{font-weight:900;letter-spacing:.5px}
+    .brand .sub{font-size:.78rem;opacity:.8;letter-spacing:2px}
+
+    nav ul{list-style:none;display:flex;gap:8px;flex-wrap:wrap}
+    nav a{
+      display:block;
+      padding:10px 14px;
+      background: var(--white);
+      border:3px solid var(--black);
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      font-weight:800;
+      letter-spacing:.5px;
+      transition: transform .15s;
+    }
+    nav a:hover{transform: translateY(-2px)}
+    nav a.cta{
+      background: var(--pink);
+      color:#fff;
+    }
+
+    /* 英雄区 */
+    .hero{padding:46px 0 26px}
+    .hero-grid{display:grid;grid-template-columns: 1.2fr .8fr;gap:18px}
+    .panel{
+      background: var(--white);
+      border: 4px solid var(--black);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .sticker{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border:3px solid var(--black);
+      border-radius: 999px;
+      background: var(--yellow);
+      font-weight:900;
+      letter-spacing:1px;
+      margin-bottom:14px;
+      box-shadow: var(--shadow2);
+    }
+    h1{
+      font-size:3.1rem;
+      line-height:1.05;
+      letter-spacing:.5px;
+    }
+    .pop{
+      background: linear-gradient(135deg, var(--pink), var(--cyan));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      -webkit-text-stroke: 2px var(--black);
+      text-shadow: 6px 6px 0 rgba(0,0,0,.0);
+    }
+    .lead{
+      margin-top:14px;
+      font-size:1.05rem;
+      line-height:1.75;
+      opacity:.85;
+      max-width: 62ch;
+    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border: 3px solid var(--black);
+      border-radius: 999px;
+      padding: 12px 16px;
+      background: var(--white);
+      box-shadow: var(--shadow2);
+      font-weight:900;
+      cursor:pointer;
+      transition: transform .15s;
+      letter-spacing:.5px;
+    }
+    .btn:hover{transform: translateY(-2px)}
+    .btn.primary{background: var(--cyan)}
+    .btn.hot{background: var(--pink);color:#fff}
+
+    .burst{
+      position:absolute;right:-40px;top:-40px;
+      width:180px;height:180px;
+      background: radial-gradient(circle, var(--yellow) 0 38%, transparent 40%),
+                  conic-gradient(from 0deg, var(--pink), var(--cyan), var(--yellow), var(--pink));
+      border: 4px solid var(--black);
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+      transform: rotate(18deg);
+      opacity:.95;
+    }
+    .burst::after{
+      content:"SALE!";
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:1000;
+      font-size:1.6rem;
+      letter-spacing:2px;
+      -webkit-text-stroke: 2px var(--black);
+      color:#fff;
+    }
+
+    /* 右侧：精选类目 */
+    .cat{display:grid;gap:12px}
+    .cat-item{
+      display:flex;align-items:center;gap:14px;
+      padding:16px;
+      border: 4px solid var(--black);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(255,62,165,.12), rgba(0,210,255,.10)), var(--white);
+      cursor:pointer;
+      transition: transform .15s;
+    }
+    .cat-item:hover{transform: translateY(-2px)}
+    .ico{
+      width:54px;height:54px;border-radius: 16px;
+      border: 4px solid var(--black);
+      background: var(--yellow);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.6rem;
+      box-shadow: var(--shadow2);
+      flex-shrink:0;
+    }
+    .cat-item h3{font-size:1.05rem;font-weight:1000;letter-spacing:.5px}
+    .cat-item p{font-size:.86rem;opacity:.85;line-height:1.5;margin-top:4px}
+
+    /* 分区通用 */
+    section{padding:54px 0}
+    .head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      font-weight:1000;letter-spacing:4px;text-transform:uppercase;
+      border: 4px solid var(--black);
+      padding:8px 12px;border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: var(--shadow2);
+      font-size:.82rem;
+    }
+    .h2{font-size:2.2rem;font-weight:1000;letter-spacing:.5px}
+    .desc{opacity:.85;line-height:1.7;max-width: 72ch;margin-top:8px}
+    .grid3{display:grid;grid-template-columns: repeat(3, 1fr);gap:14px;margin-top:14px}
+    .card{
+      background: var(--white);
+      border: 4px solid var(--black);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      cursor:pointer;
+      transition: transform .15s;
+    }
+    .card:hover{transform: translateY(-3px)}
+    .card img{width:100%;height:180px;object-fit:cover;display:block}
+    .card .body{padding:16px}
+    .tag{
+      display:inline-block;
+      padding:4px 10px;
+      border: 3px solid var(--black);
+      border-radius: 999px;
+      font-weight:1000;
+      font-size:.72rem;
+      letter-spacing:2px;
+      background: var(--cyan);
+      box-shadow: var(--shadow2);
+    }
+    .card h3{margin-top:10px;font-size:1.12rem;font-weight:1000}
+    .card p{margin-top:8px;opacity:.85;line-height:1.6;font-size:.9rem}
+    .card .foot{
+      margin-top:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:1000;font-size:.9rem;
+    }
+    .price{
+      padding:6px 10px;border-radius: 999px;border:3px solid var(--black);
+      background: var(--yellow);box-shadow: var(--shadow2);
+      letter-spacing:.5px;
+    }
+
+    /* 活动 */
+    .banner{
+      background: linear-gradient(135deg, var(--pink), var(--cyan));
+      border: 4px solid var(--black);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      color:#fff;
+      position:relative;overflow:hidden;
+    }
+    .banner::before{
+      content:"";
+      position:absolute;inset:-20px;
+      background: radial-gradient(circle at 20px 20px, rgba(255,255,255,.25) 2px, transparent 2px) 0 0/22px 22px;
+      opacity:.5;
+    }
+    .banner .txt{position:relative;z-index:1}
+    .banner .txt .t{font-size:1.5rem;font-weight:1000;letter-spacing:.5px}
+    .banner .txt .d{opacity:.9;margin-top:6px;line-height:1.6}
+    .banner .btn{position:relative;z-index:1;background: var(--yellow)}
+
+    /* 联系 */
+    .contact{
+      display:grid;grid-template-columns: 1fr 1fr;gap:14px;
+    }
+    .box{
+      background: var(--white);
+      border: 4px solid var(--black);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    label{display:block;font-weight:1000;margin:10px 0 6px;letter-spacing:.5px}
+    input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border: 3px solid var(--black);
+      border-radius: 14px;
+      font-size: .95rem;
+      background: #fff;
+      box-shadow: var(--shadow2);
+      outline: none;
+      font-family: inherit;
+    }
+    textarea{min-height:96px;resize:vertical}
+    .row{display:grid;grid-template-columns: 1fr 1fr;gap:10px}
+    footer{
+      padding: 28px 0 42px;
+      border-top: 4px solid var(--black);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+    }
+    .foot{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      font-weight:900;letter-spacing:.5px;
+    }
+    .muted{opacity:.75;font-size:.9rem;line-height:1.7}
+
+    /* 模态框 */
+    .modal-bg{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+      align-items:center;justify-content:center;
+      padding: 20px;
+    }
+    .modal-bg.show{display:flex}
+    .modal{
+      width:min(560px, 100%);
+      background: var(--white);
+      border: 4px solid var(--black);
+      border-radius: var(--radius);
+      box-shadow: 14px 14px 0 var(--black);
+      padding: 22px;
+      position:relative;
+    }
+    .x{
+      position:absolute;top:12px;right:12px;
+      width:40px;height:40px;border-radius: 14px;
+      border: 3px solid var(--black);
+      background: var(--yellow);
+      box-shadow: var(--shadow2);
+      cursor:pointer;font-weight:1000;
+    }
+    .modal h3{font-size:1.35rem;font-weight:1000;letter-spacing:.5px}
+    .modal p{margin-top:10px;line-height:1.75;opacity:.9}
+    .modal .actions{margin-top:14px}
+
+    /* reveal */
+    .reveal{opacity:0;transform: translateY(18px);transition: opacity .55s ease, transform .55s ease}
+    .reveal.in{opacity:1;transform: translateY(0)}
+
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      nav ul{display:none}
+      h1{font-size:2.2rem}
+      .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <a class="brand" href="#home" onclick="go(event,'#home')">
+          <div class="logo">XZ</div>
+          <div>
+            <div class="name">广州小造电子商务有限公司</div>
+            <div class="sub">E-COMMERCE · BRANDING · SUPPLY</div>
+          </div>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#products" onclick="go(event,'#products')">爆款精选</a></li>
+            <li><a href="#services" onclick="go(event,'#services')">业务能力</a></li>
+            <li><a href="#cases" onclick="go(event,'#cases')">案例展示</a></li>
+            <li><a href="#contact" onclick="go(event,'#contact')">联系合作</a></li>
+            <li><a class="cta" href="#contact" onclick="go(event,'#contact')">立即咨询</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="panel reveal">
+          <div class="burst" aria-hidden="true"></div>
+          <span class="sticker">💥 选品=爆款 · 运营=增长</span>
+          <h1>把你的商品<br><span class="pop">做成爆款</span></h1>
+          <p class="lead">广州小造电子商务有限公司聚焦品牌增长与电商全链路：从选品、视觉、内容、投放到履约与客服，用“数据+创意”把转化率拉满。</p>
+          <div class="actions">
+            <button class="btn hot" onclick="openLead('电商代运营')">立即委托代运营</button>
+            <button class="btn primary" onclick="go(null,'#products')">看爆款精选</button>
+            <button class="btn" onclick="openLead('供应链合作')">供应链合作</button>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <div class="sticker" style="background: var(--cyan);">🛒 精选类目</div>
+          <div class="cat">
+            <div class="cat-item" onclick="openModal('家居好物', '围绕“高颜值+高性价比”，主打收纳、清洁、厨房小器具等，适合内容带货与短视频种草。', '🏠')">
+              <div class="ico">🏠</div>
+              <div>
+                <h3>家居好物</h3>
+                <p>收纳/清洁/厨房，低客单高复购</p>
+              </div>
+            </div>
+            <div class="cat-item" onclick="openModal('个护美妆', '强调功效表达与合规文案，配合达人矩阵内容种草与直播节奏。', '💄')">
+              <div class="ico">💄</div>
+              <div>
+                <h3>个护美妆</h3>
+                <p>功效卖点+内容种草，转化更稳</p>
+              </div>
+            </div>
+            <div class="cat-item" onclick="openModal('3C配件', '围绕“新奇特/差异化设计”，适合搜索+内容双驱动。', '🔌')">
+              <div class="ico">🔌</div>
+              <div>
+                <h3>3C配件</h3>
+                <p>差异化SKU，搜索/内容双驱动</p>
+              </div>
+            </div>
+            <div class="cat-item" onclick="openModal('户外出行', '季节性强，适合节点大促与主题活动策划。', '🎒')">
+              <div class="ico">🎒</div>
+              <div>
+                <h3>户外出行</h3>
+                <p>节点大促，主题打法更出圈</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="products">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="kicker">POP PRODUCTS</span>
+          <div class="h2">爆款精选</div>
+          <div class="desc">点击商品卡片可查看详情；支持订阅上新与需求提交，便于你完整走通业务链路。</div>
+        </div>
+        <button class="btn hot" onclick="subscribeNewArrivals()">订阅上新</button>
+      </div>
+      <div class="grid3">
+        <div class="card reveal" onclick="openModal('懒人收纳盒套装', '主打“可叠加+高颜值”，适合组合装提高客单。建议配合短视频场景化展示。', '🏷️')">
+          <img alt="收纳" src="https://images.unsplash.com/photo-1582582429415-0d4c55d1e5b7?w=1200&q=80">
+          <div class="body">
+            <span class="tag">HOME</span>
+            <h3>懒人收纳盒套装</h3>
+            <p>上新首周转化率提升方案：场景图+对比图+买点文案。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">¥39 起</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('控油洁面慕斯', '强调“温和清洁+控油不拔干”，适合达人测评与直播间对比展示。', '🧴')">
+          <img alt="个护" src="https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?w=1200&q=80">
+          <div class="body">
+            <span class="tag" style="background: var(--pink);color:#fff;">BEAUTY</span>
+            <h3>控油洁面慕斯</h3>
+            <p>内容打法：成分科普+真人使用反馈+复购理由。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">¥59 起</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('磁吸数据线 2.0', '强调“快充+耐用”，适合搜索词投放与评价图文优化。', '⚡')">
+          <img alt="3C" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&q=80">
+          <div class="body">
+            <span class="tag" style="background: #b8ff00;">3C</span>
+            <h3>磁吸数据线 2.0</h3>
+            <p>运营建议：主图卖点分层表达，搭配套装提升客单。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">¥29 起</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="kicker" style="background: var(--cyan);">GROWTH</span>
+          <div class="h2">业务能力</div>
+          <div class="desc">从0到1搭建店铺，从1到10做增长：把“视觉、内容、投放、供应链”整合成可复用的增长流程。</div>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card reveal" onclick="openModal('店铺搭建与视觉', '包含店铺装修、视觉规范、主图详情页体系与素材库管理。', '🎨')">
+          <div class="body">
+            <span class="tag">VISUAL</span>
+            <h3>店铺搭建与视觉</h3>
+            <p>统一风格+卖点拆解+模块化详情页，提高信任与转化。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">方案</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('内容与直播增长', '短视频脚本、达人矩阵、直播间节奏与复盘模型。', '🎥')">
+          <div class="body">
+            <span class="tag" style="background: var(--pink);color:#fff;">CONTENT</span>
+            <h3>内容与直播增长</h3>
+            <p>内容种草与直播转化协同，让ROI更稳定。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">增长</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('投放与数据优化', '搜索/信息流投放、关键词策略、A/B测试与日常复盘。', '📈')">
+          <div class="body">
+            <span class="tag" style="background: var(--yellow);">DATA</span>
+            <h3>投放与数据优化</h3>
+            <p>用数据驱动选品与创意迭代，持续提升转化率。</p>
+            <div class="foot"><span>点击查看详情</span><span class="price">优化</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px" class="banner reveal">
+        <div class="txt">
+          <div class="t">「爆款加速」服务包</div>
+          <div class="d">7天出选品+素材方案，14天完成内容与投放联动，适合新品冷启动。</div>
+        </div>
+        <button class="btn" onclick="openLead('爆款加速服务包报名')">立即报名</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="kicker">CASES</span>
+          <div class="h2">案例展示</div>
+          <div class="desc">覆盖家居、个护、3C等类目，提供从内容到投放的增长闭环与复盘方法。</div>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card reveal" onclick="openModal('家居品牌A：30天转化提升', '通过重构详情页与达人矩阵投放，30天转化率提升，并稳定提升自然流量占比。', '🏆')">
+          <img alt="家居" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1200&q=80">
+          <div class="body">
+            <span class="tag">CASE</span>
+            <h3>家居品牌A：30天转化提升</h3>
+            <p>打法：主图/详情页升级 + 达人矩阵 + 搜索投放优化。</p>
+            <div class="foot"><span>点击查看复盘</span><span class="price">ROI↑</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('个护品牌B：复购体系搭建', '通过会员与私域运营，构建复购链路，并完善内容种草与组合装策略。', '🔁')">
+          <img alt="个护" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&q=80">
+          <div class="body">
+            <span class="tag" style="background: var(--pink);color:#fff;">CASE</span>
+            <h3>个护品牌B：复购体系搭建</h3>
+            <p>打法：会员分层 + 组合装策略 + 内容持续种草。</p>
+            <div class="foot"><span>点击查看复盘</span><span class="price">复购↑</span></div>
+          </div>
+        </div>
+        <div class="card reveal" onclick="openModal('3C品牌C：搜索词破局', '重构关键词与评价体系，提升自然流量，并优化套装结构提升客单。', '🔎')">
+          <img alt="3C" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=1200&q=80">
+          <div class="body">
+            <span class="tag" style="background: #b8ff00;">CASE</span>
+            <h3>3C品牌C：搜索词破局</h3>
+            <p>打法：关键词结构化 + 评价图文优化 + 套装提升客单。</p>
+            <div class="foot"><span>点击查看复盘</span><span class="price">流量↑</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="kicker" style="background: var(--yellow);">CONTACT</span>
+          <div class="h2">联系合作</div>
+          <div class="desc">填写需求信息并提交后将生成对接单号，便于跟进与沟通。</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div class="box reveal">
+          <div style="font-size:1.2rem;font-weight:1000;letter-spacing:.5px">合作方式</div>
+          <p class="muted" style="margin-top:10px">
+            - 代运营：店铺搭建/内容/投放/复盘<br>
+            - 供应链协同：选品/备货/仓配/售后<br>
+            - 品牌增长：爆款方法论/达人矩阵/直播策略
+          </p>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn primary" onclick="openModal('电话咨询', '商务热线：020-5166-2381（9:00—18:00）。', '☎️')">电话咨询</button>
+            <button class="btn" onclick="openModal('邮箱联系', '邮箱：biz@xiaozhao-ecom.com', '✉️')">邮箱联系</button>
+            <button class="btn hot" onclick="openLead('加急对接')">加急对接</button>
+          </div>
+        </div>
+        <div class="box reveal">
+          <form onsubmit="submitLead(event)">
+            <div class="row">
+              <div>
+                <label>联系人 *</label>
+                <input required placeholder="请输入姓名">
+              </div>
+              <div>
+                <label>联系电话 *</label>
+                <input required placeholder="请输入手机号">
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label>合作类型 *</label>
+                <select required>
+                  <option value="">请选择</option>
+                  <option>电商代运营</option>
+                  <option>品牌增长</option>
+                  <option>供应链合作</option>
+                  <option>内容/直播合作</option>
+                </select>
+              </div>
+              <div>
+                <label>预算区间</label>
+                <select>
+                  <option>5万以内</option>
+                  <option>5-20万</option>
+                  <option>20-50万</option>
+                  <option>50万以上</option>
+                </select>
+              </div>
+            </div>
+            <label>需求描述</label>
+            <textarea placeholder="请描述类目、目标与周期"></textarea>
+            <div class="actions">
+              <button class="btn hot" style="flex:1" type="submit">提交需求</button>
+              <button class="btn" style="flex:1" type="button" onclick="downloadDoc('小造电商-公司介绍.txt', getIntro())">下载介绍</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <div>© 2025 广州小造电子商务有限公司</div>
+          <div class="muted">图片素材用于展示：家居/美妆/3C/摄影场景。</div>
+        </div>
+        <div class="actions" style="margin-top:6px">
+          <button class="btn" onclick="go(null,'#home')">返回顶部</button>
+          <button class="btn primary" onclick="openModal('一键验收', '你可以按导航逐个点击：爆款精选/业务能力/案例/联系合作，并点击每张卡片与表单提交，检查弹窗是否正常。后续我会自动逐站点做点击测试。', '✅')">验收提示</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-bg" id="m" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="x" onclick="hideModal()">✕</button>
+      <div class="sticker" id="m-ico" style="margin-bottom:12px">ℹ️</div>
+      <h3 id="m-t">标题</h3>
+      <p id="m-b">内容</p>
+      <div class="actions">
+        <button class="btn primary" onclick="hideModal()">我知道了</button>
+        <button class="btn" onclick="openModal('跳转与对接', '可按需求对接商品页、小程序、在线客服或企业微信，实现线索与订单闭环。', '🔗')">继续查看</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function go(e, id){
+      if(e) e.preventDefault();
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+    function openModal(title, body, ico){
+      document.getElementById('m-t').textContent = title || '提示';
+      document.getElementById('m-b').textContent = body || '';
+      document.getElementById('m-ico').textContent = (ico || 'ℹ️') + '  POP!';
+      document.getElementById('m').classList.add('show');
+    }
+    function hideModal(){document.getElementById('m').classList.remove('show')}
+    function closeModal(e){ if(e.target===document.getElementById('m')) hideModal(); }
+
+    function genRef(prefix){
+      const d = new Date();
+      const pad = (n)=>String(n).padStart(2,'0');
+      const base = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const rnd = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${prefix}-${base}-${rnd}`;
+    }
+
+    function saveLocal(key, payload){
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      list.unshift(payload);
+      localStorage.setItem(key, JSON.stringify(list.slice(0,200)));
+    }
+
+    function openLead(type){
+      const ref = genRef('XZ');
+      saveLocal('xiaozhao_leads', { ref, type, at: new Date().toISOString() });
+      openModal('✅ 已提交', `已生成对接单号：${ref}。我们将尽快联系您确认需求与对接节奏。`, '✅');
+    }
+
+    function subscribeNewArrivals(){
+      const ref = genRef('XZ-S');
+      saveLocal('xiaozhao_subscribe', { ref, at: new Date().toISOString() });
+      openModal('🔔 订阅成功', `已生成订阅编号：${ref}。我们将按节奏推送上新与活动信息。`, '🔔');
+    }
+
+    function submitLead(e){
+      e.preventDefault();
+      const form = e.target;
+      const ref = genRef('XZ-L');
+      const name = form.querySelector('input[required]').value.trim();
+      const phone = form.querySelectorAll('input')[1].value.trim();
+      const coop = form.querySelector('select[required]').value;
+      const budget = form.querySelectorAll('select')[1].value;
+      const detail = form.querySelector('textarea').value.trim();
+      saveLocal('xiaozhao_leads', { ref, at: new Date().toISOString(), name, phone, coop, budget, detail });
+      openModal('✅ 提交成功', `已生成对接单号：${ref}。我们将尽快联系您，安排方案沟通与对接。`, '✅');
+      form.reset();
+    }
+
+    function downloadDoc(filename, content){
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+      openModal('📄 下载已开始', `文件已生成：${filename}`, '📄');
+    }
+
+    function getIntro(){
+      return [
+        '广州小造电子商务有限公司',
+        '公司介绍（摘要）',
+        '',
+        '核心能力：',
+        '- 选品与供应链协同：爆款方法论、备货与履约策略',
+        '- 店铺搭建与视觉：主图/详情页体系、素材库与规范',
+        '- 内容与直播增长：脚本、达人矩阵、直播节奏与复盘',
+        '- 投放与数据优化：关键词策略、A/B测试、ROI稳定提升',
+        '',
+        '联系：020-5166-2381 / biz@xiaozhao-ecom.com'
+      ].join('\\n');
+    }
+
+    // reveal
+    const obs = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
+

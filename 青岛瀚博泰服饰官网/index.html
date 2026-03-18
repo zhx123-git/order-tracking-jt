@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>青岛瀚博泰服饰</title>
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --paper:#0f1118;
+      --text:#f3f4ff;
+      --muted: rgba(243,244,255,.70);
+      --lime:#b9ff00;
+      --pink:#ff2fd6;
+      --cyan:#00e8ff;
+      --silver: rgba(255,255,255,.85);
+      --line: rgba(255,255,255,.12);
+      --radius: 22px;
+      --radius2: 16px;
+      --shadow: 0 28px 90px rgba(0,0,0,.70);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: ui-sans-serif, -apple-system, "PingFang SC","Microsoft YaHei", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% -10%, rgba(0,232,255,.22), transparent 60%),
+        radial-gradient(1000px 700px at 110% 0%, rgba(255,47,214,.20), transparent 55%),
+        radial-gradient(1000px 800px at 60% 120%, rgba(185,255,0,.16), transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 22px}
+
+    /* Acid background */
+    .acid{
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background:
+        conic-gradient(from 180deg at 30% 10%, rgba(185,255,0,.25), rgba(0,232,255,.16), rgba(255,47,214,.18), rgba(185,255,0,.25)),
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(circle at 50% 70%, rgba(255,255,255,.05), transparent 60%);
+      mix-blend-mode: screen;
+      opacity:.55;
+      filter: saturate(1.2) contrast(1.1);
+    }
+    .noise{
+      position:fixed;inset:0;z-index:1;pointer-events:none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+      opacity:.25;
+      mix-blend-mode: overlay;
+    }
+    main, section, footer, header{position:relative;z-index:2}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:1000;
+      background: rgba(11,12,16,.74);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top{
+      height:78px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      padding:10px 12px;border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 70px rgba(0,0,0,.35);
+    }
+    .logo{
+      width:46px;height:46px;border-radius: 16px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:1000;letter-spacing:1px;
+      background:
+        linear-gradient(135deg, rgba(185,255,0,.95), rgba(0,232,255,.70)),
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%);
+      color:#091016;
+      box-shadow: 0 0 28px rgba(0,232,255,.14);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .name{font-weight:1000;letter-spacing:.6px}
+    .sub{font-size:.78rem;color:var(--muted);letter-spacing:2px;margin-top:2px}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{
+      display:block;padding:10px 14px;border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-weight:1000;letter-spacing:.4px;
+      transition: transform .18s, background .18s, color .18s;
+    }
+    nav a:hover{transform: translateY(-2px);background: rgba(255,255,255,.08);color: var(--text)}
+    nav a.cta{
+      background: linear-gradient(135deg, rgba(255,47,214,.95), rgba(185,255,0,.80));
+      color:#0b0f13;border-color: transparent;
+      box-shadow: 0 18px 70px rgba(255,47,214,.12);
+    }
+
+    /* Hero */
+    .hero{padding:72px 0 34px}
+    .hero-grid{display:grid;grid-template-columns: 1.2fr .8fr;gap:14px}
+    .panel{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;inset:-2px;
+      background:
+        linear-gradient(90deg, transparent, rgba(185,255,0,.10), transparent),
+        linear-gradient(180deg, transparent, rgba(255,47,214,.09), transparent);
+      transform: rotate(-6deg);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .chip{
+      position:relative;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius: 999px;
+      background: rgba(185,255,0,.10);
+      border: 1px solid rgba(185,255,0,.26);
+      color: rgba(243,244,255,.92);
+      font-weight:1000;letter-spacing:1px;font-size:.82rem;
+    }
+    h1{
+      position:relative;
+      font-size: 3.1rem;
+      line-height:1.06;
+      letter-spacing:.7px;
+      margin-top:14px;
+      font-weight:1000;
+    }
+    .acidtext{
+      background: linear-gradient(135deg, var(--lime), var(--cyan), var(--pink));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow: 0 0 26px rgba(0,232,255,.16);
+    }
+    .lead{
+      position:relative;
+      margin-top:14px;
+      color: var(--muted);
+      font-size:1.05rem;
+      line-height:1.9;
+      max-width: 74ch;
+    }
+    .actions{position:relative;display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border:none;cursor:pointer;
+      padding:12px 16px;border-radius: 999px;
+      font-weight:1000;letter-spacing:.5px;
+      transition: transform .18s, filter .18s;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+    }
+    .btn:hover{transform: translateY(-2px);filter: brightness(1.1)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(185,255,0,.95), rgba(0,232,255,.80));
+      color:#071014;border-color: transparent;
+    }
+    .btn.hot{
+      background: linear-gradient(135deg, rgba(255,47,214,.95), rgba(185,255,0,.80));
+      color:#0b0f13;border-color: transparent;
+    }
+
+    .metrics{display:grid;grid-template-columns: repeat(2, 1fr);gap:12px;margin-top:14px;position:relative}
+    .m{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 14px;
+    }
+    .m .num{font-size:2.0rem;font-weight:1000;letter-spacing:.5px}
+    .m .num span{color: rgba(243,244,255,.55);font-size:1.1rem}
+    .m .lab{color:var(--muted);font-size:.86rem;margin-top:6px;line-height:1.65}
+
+    /* Section */
+    section{padding:58px 0}
+    .head{margin-bottom:14px}
+    .kicker{
+      font-size:.82rem;letter-spacing:4px;text-transform:uppercase;
+      color: rgba(243,244,255,.86);
+      display:flex;align-items:center;gap:10px;
+      font-weight:1000;
+    }
+    .kicker::before{
+      content:"";width:16px;height:2px;border-radius:2px;
+      background: linear-gradient(90deg, var(--lime), var(--pink));
+    }
+    .h2{font-size:2.2rem;letter-spacing:.6px;margin-top:10px;font-weight:1000}
+    .sub2{color:var(--muted);margin-top:10px;line-height:1.9;max-width: 86ch}
+
+    .grid3{display:grid;grid-template-columns: repeat(3, 1fr);gap:14px;margin-top:14px}
+    .tile{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+      cursor:pointer;
+      transition: transform .18s, background .18s;
+      position:relative;
+      overflow:hidden;
+    }
+    .tile:hover{transform: translateY(-3px);background: rgba(255,255,255,.07)}
+    .tile .ico{
+      width:52px;height:52px;border-radius: 18px;
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg, rgba(0,232,255,.18), rgba(255,47,214,.14));
+      border: 1px solid rgba(255,255,255,.12);
+      font-size:1.4rem;
+      margin-bottom: 12px;
+    }
+    .tile h3{font-size:1.1rem;font-weight:1000;letter-spacing:.4px}
+    .tile p{color:var(--muted);margin-top:8px;line-height:1.75;font-size:.92rem}
+    .mini{margin-top:12px;display:flex;align-items:center;justify-content:space-between;color:rgba(243,244,255,.78);font-weight:1000;font-size:.88rem}
+    .pill{
+      padding:6px 10px;border-radius: 999px;
+      background: rgba(255,47,214,.10);
+      border: 1px solid rgba(255,47,214,.22);
+      font-weight:1000;letter-spacing:1px;font-size:.72rem;
+    }
+
+    /* Lookbook */
+    .look{display:grid;grid-template-columns: 1fr 1fr;gap:14px;margin-top:14px}
+    .shot{
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      position:relative;
+      min-height: 320px;
+    }
+    .shot img{width:100%;height:100%;object-fit:cover;display:block;filter: saturate(1.08) contrast(1.05)}
+    .shot::after{
+      content:"";position:absolute;inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.62), rgba(0,0,0,.08));
+      pointer-events:none;
+    }
+    .shot .cap{
+      position:absolute;left:18px;right:18px;bottom:16px;z-index:2;
+      color:#fff;
+    }
+    .shot .cap .t{font-weight:1000;letter-spacing:.4px;font-size:1.15rem}
+    .shot .cap .d{opacity:.85;margin-top:6px;line-height:1.7}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns: 1fr 1fr;gap:14px}
+    .box{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    label{display:block;margin:10px 0 6px;font-weight:1000;letter-spacing:.5px;color: rgba(243,244,255,.88);font-size:.82rem}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.26);
+      color: var(--text);
+      outline:none;
+      font-family: inherit;
+      transition: box-shadow .18s, border-color .18s;
+    }
+    textarea{min-height:96px;resize:vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(185,255,0,.45);
+      box-shadow: 0 0 0 4px rgba(185,255,0,.14);
+    }
+    .row{display:grid;grid-template-columns: 1fr 1fr;gap:10px}
+
+    footer{
+      padding: 26px 0 44px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(243,244,255,.55);
+      font-size:.86rem;
+    }
+    .foot{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:16px}
+    .foot a{color: rgba(243,244,255,.80);font-weight:1000}
+
+    /* Modal */
+    .modal-bg{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background: rgba(0,0,0,.68);
+      backdrop-filter: blur(10px);
+      align-items:center;justify-content:center;
+      padding: 20px;
+    }
+    .modal-bg.show{display:flex}
+    .modal{
+      width:min(640px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 40px 130px rgba(0,0,0,.75);
+      padding: 22px;
+      position:relative;
+    }
+    .modal .x{
+      position:absolute;top:12px;right:12px;
+      width:40px;height:40px;border-radius: 14px;border:none;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      cursor:pointer;font-weight:1000;
+    }
+    .modal h3{font-size:1.35rem;font-weight:1000;letter-spacing:.4px}
+    .modal p{color:var(--muted);margin-top:10px;line-height:1.9}
+    .modal .bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .modal .bar .btn{flex:1}
+
+    .reveal{opacity:0;transform: translateY(14px);transition: opacity .55s ease, transform .55s ease}
+    .reveal.in{opacity:1;transform: translateY(0)}
+
+    @media (max-width: 980px){
+      nav ul{display:none}
+      .hero-grid{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .look{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+      h1{font-size:2.2rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="acid" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header>
+    <div class="container">
+      <div class="top">
+        <a class="brand" href="#home" onclick="go(event,'#home')">
+          <div class="logo">瀚</div>
+          <div>
+            <div class="name">青岛瀚博泰服饰</div>
+            <div class="sub">Apparel · Uniform · Custom</div>
+          </div>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#products" onclick="go(event,'#products')">产品</a></li>
+            <li><a href="#services" onclick="go(event,'#services')">服务</a></li>
+            <li><a href="#lookbook" onclick="go(event,'#lookbook')">Lookbook</a></li>
+            <li><a href="#contact" onclick="go(event,'#contact')">联系</a></li>
+            <li><a class="cta" href="#contact" onclick="go(event,'#contact')">快速打样</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="panel reveal">
+          <span class="chip">🧪 Acid Graphics · 定制服饰 · 团队形象</span>
+          <h1>把制服做成<br><span class="acidtext">品牌资产</span></h1>
+          <p class="lead">青岛瀚博泰服饰面向企业工装、团体服、活动服、职业装与功能服饰提供一站式定制服务：从需求沟通、打样确认到批量交付，全流程质量把控与节点管理。</p>
+          <div class="actions">
+            <button class="btn primary" onclick="openSample()">快速打样</button>
+            <button class="btn hot" onclick="go(null,'#products')">查看产品</button>
+            <button class="btn" onclick="openModal('面料与工艺', '支持多种面料选择、刺绣/丝印/热转印等工艺与版型建议，并可按场景提供耐磨/透气/防泼水等功能选型。', '🧵')">面料与工艺</button>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <div class="head">
+            <div class="kicker">Stats</div>
+            <div class="h2">交付能力</div>
+            <div class="sub2">以标准化流程与质检节点保障交付质量与交期稳定。</div>
+          </div>
+          <div class="metrics">
+            <div class="m">
+              <div class="num">7<span>天</span></div>
+              <div class="lab">常规打样周期</div>
+            </div>
+            <div class="m">
+              <div class="num">1000<span>+</span></div>
+              <div class="lab">服务客户数</div>
+            </div>
+            <div class="m">
+              <div class="num">20<span>+</span></div>
+              <div class="lab">可选面料与色卡</div>
+            </div>
+            <div class="m">
+              <div class="num">1对1</div>
+              <div class="lab">版型/工艺顾问对接</div>
+            </div>
+          </div>
+          <div class="actions" style="margin-top:14px">
+            <button class="btn" onclick="downloadDoc('瀚博泰-尺码表.txt', getSizeChart())">下载尺码表</button>
+            <button class="btn primary" onclick="openModal('验收提示', '建议逐项点击：导航 → 产品卡片 → 服务卡片 → Lookbook图片 → 联系表单提交，检查弹窗与滚动定位。', '✅')">验收提示</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="products">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Products</div>
+        <div class="h2">产品系列</div>
+        <div class="sub2">覆盖企业工装、职业装、团体服与活动服等，支持刺绣/印花/反光/功能性面料。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('企业工装', '适用于制造、物流、工程等：耐磨、易清洗、可加反光条，并可按岗位配置口袋/工牌位/加固细节。', '🦺')">
+          <div class="ico">🦺</div>
+          <h3>企业工装</h3>
+          <p>标准化版型 + 工艺定制，让团队形象更统一。</p>
+          <div class="mini"><span class="pill">UNIFORM</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('职业装/西服', '适用于酒店、商务、前台：版型利落、面料挺括，支持刺绣LOGO与配套围裙/领带/丝巾等。', '🧥')">
+          <div class="ico">🧥</div>
+          <h3>职业装/西服</h3>
+          <p>质感与版型兼顾，适配品牌接待与商务场景。</p>
+          <div class="mini"><span class="pill">SUIT</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('团体T恤/卫衣', '适用于活动、社群、校园：多色可选，丝印/刺绣/热转印，并支持快反与组合装。', '👕')">
+          <div class="ico">👕</div>
+          <h3>团体T恤/卫衣</h3>
+          <p>活动视觉一体化：从图案到色彩统一呈现。</p>
+          <div class="mini"><span class="pill">TEAM</span><span>点击查看 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Services</div>
+        <div class="h2">定制服务</div>
+        <div class="sub2">从需求沟通到打样、量体、生产与交付，提供标准化流程与质量把控。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('需求沟通', '确认场景、人数、预算、面料与工艺，建立定制方案并明确交付节点。', '📝')">
+          <div class="ico">📝</div>
+          <h3>需求沟通</h3>
+          <p>明确使用场景与品牌视觉，快速形成方案。</p>
+          <div class="mini"><span class="pill">BRIEF</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('打样与确认', '确认版型、尺寸、颜色、LOGO工艺与辅料细节，并对关键细节拍照留档。', '🧷')">
+          <div class="ico">🧷</div>
+          <h3>打样与确认</h3>
+          <p>打样验证手感与工艺效果，降低批量风险。</p>
+          <div class="mini"><span class="pill">SAMPLE</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('批量生产与交付', '规模化生产、质检、包装、发货与售后支持，提供出厂检验与到货确认。', '📦')">
+          <div class="ico">📦</div>
+          <h3>生产与交付</h3>
+          <p>全流程质检与节点管理，按期交付更放心。</p>
+          <div class="mini"><span class="pill">DELIVER</span><span>点击查看 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Lookbook</div>
+        <div class="h2">Lookbook</div>
+        <div class="sub2">点击图片可弹出“系列说明”，用于按钮点击测试。</div>
+      </div>
+      <div class="look">
+        <div class="shot reveal" onclick="openModal('商务职业装系列', '强调版型与质感，适合酒店、办公与接待场景。', '✨')">
+          <img alt="职业装" src="https://images.unsplash.com/photo-1520975869010-3b6cbb56d0f7?w=1600&q=80">
+          <div class="cap">
+            <div class="t">商务职业装</div>
+            <div class="d">剪裁利落，品牌识别更清晰</div>
+          </div>
+        </div>
+        <div class="shot reveal" onclick="openModal('团体活动服系列', '强调色彩与图案统一，适合活动、赛事与品牌传播。', '🔥')">
+          <img alt="团体服" src="https://images.unsplash.com/photo-1520975693416-35a7f9b6b2b9?w=1600&q=80">
+          <div class="cap">
+            <div class="t">团体活动服</div>
+            <div class="d">让团队成为最醒目的视觉焦点</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Contact</div>
+        <div class="h2">联系与打样申请</div>
+        <div class="sub2">提交表单会弹窗提示（用于按钮测试）。</div>
+      </div>
+      <div class="contact">
+        <div class="box reveal">
+          <div style="font-size:1.2rem;font-weight:1000;letter-spacing:.4px">快速联系</div>
+          <p style="color:var(--muted);margin-top:10px;line-height:1.9">
+            - 电话：0532-5166-2381<br>
+            - 邮箱：sales@hanbotai-apparel.com<br>
+            - 地址：青岛市城阳区纺织产业园
+          </p>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn primary" onclick="openModal('电话咨询', '请拨打 0532-5166-2381（9:00—18:00）。', '☎️')">电话咨询</button>
+            <button class="btn" onclick="downloadDoc('瀚博泰-工艺清单.txt', getProcessList())">工艺清单</button>
+            <button class="btn hot" onclick="openLead('加急打样')">加急打样</button>
+          </div>
+        </div>
+        <div class="box reveal">
+          <form onsubmit="submitForm(event)">
+            <div class="row">
+              <div>
+                <label>联系人 *</label>
+                <input required placeholder="请输入姓名" />
+              </div>
+              <div>
+                <label>联系电话 *</label>
+                <input required placeholder="请输入手机号" />
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label>定制类型 *</label>
+                <select required>
+                  <option value="">请选择</option>
+                  <option>企业工装</option>
+                  <option>职业装/西服</option>
+                  <option>团体T恤/卫衣</option>
+                  <option>活动/赛事服</option>
+                </select>
+              </div>
+              <div>
+                <label>数量区间</label>
+                <select>
+                  <option>20-50</option>
+                  <option>50-100</option>
+                  <option>100-300</option>
+                  <option>300+</option>
+                </select>
+              </div>
+            </div>
+            <label>需求说明</label>
+            <textarea placeholder="例如：颜色、面料、LOGO工艺、交付期"></textarea>
+            <div class="actions">
+              <button class="btn primary" style="flex:1" type="submit">提交申请</button>
+              <button class="btn" style="flex:1" type="button" onclick="openModal('验收提示', '依次点击导航/卡片/Lookbook图片/按钮/表单提交，检查弹窗与滚动定位是否正常。之后我会统一做逐站点点击测试。', '✅')">验收提示</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© 2025 青岛瀚博泰服饰</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#home" onclick="go(event,'#home')">返回顶部</a>
+          <a href="#contact" onclick="go(event,'#contact')">联系</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-bg" id="m" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="x" onclick="hideModal()">✕</button>
+      <div class="chip" id="m-ico">ℹ️ 信息</div>
+      <h3 id="m-t" style="margin-top:10px">标题</h3>
+      <p id="m-b">内容</p>
+      <div class="bar">
+        <button class="btn" onclick="hideModal()">关闭</button>
+        <button class="btn primary" onclick="openModal('继续探索', '你可以继续点击页面的卡片和按钮进行功能测试。', '🧭')">继续探索</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function go(e, id){
+      if(e) e.preventDefault();
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    function openModal(title, body, ico){
+      document.getElementById('m-t').textContent = title || '提示';
+      document.getElementById('m-b').textContent = body || '';
+      document.getElementById('m-ico').textContent = (ico || 'ℹ️') + '  信息';
+      document.getElementById('m').classList.add('show');
+    }
+    function hideModal(){ document.getElementById('m').classList.remove('show'); }
+    function closeModal(e){ if(e.target === document.getElementById('m')) hideModal(); }
+
+    function genRef(prefix){
+      const d = new Date();
+      const pad = (n)=>String(n).padStart(2,'0');
+      const base = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const rnd = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${prefix}-${base}-${rnd}`;
+    }
+
+    function saveLocal(key, payload){
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      list.unshift(payload);
+      localStorage.setItem(key, JSON.stringify(list.slice(0,200)));
+    }
+
+    function openSample(){
+      const ref = genRef('HBT-S');
+      saveLocal('hanbotai_samples', { ref, type: '快速打样', at: new Date().toISOString() });
+      openModal('✅ 打样申请已创建', `打样单号：${ref}。请在“联系与打样申请”中提交需求细节，我们将尽快确认版型与工艺。`, '✅');
+    }
+
+    function openLead(type){
+      const ref = genRef('HBT');
+      saveLocal('hanbotai_leads', { ref, type, at: new Date().toISOString() });
+      openModal('✅ 已提交', `已生成对接单号：${ref}。我们将尽快联系您确认打样与交付安排。`, '✅');
+    }
+
+    function submitForm(e){
+      e.preventDefault();
+      const form = e.target;
+      const ref = genRef('HBT-L');
+      const name = form.querySelector('input[required]').value.trim();
+      const phone = form.querySelectorAll('input')[1].value.trim();
+      const kind = form.querySelector('select[required]').value;
+      const qty = form.querySelectorAll('select')[1].value;
+      const detail = form.querySelector('textarea').value.trim();
+      saveLocal('hanbotai_leads', { ref, at: new Date().toISOString(), name, phone, kind, qty, detail });
+      openModal('✅ 提交成功', `已生成对接单号：${ref}。我们将尽快联系您确认面料、工艺与交付周期。`, '✅');
+      form.reset();
+    }
+
+    function downloadDoc(filename, content){
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+      openModal('📄 下载已开始', `文件已生成：${filename}`, '📄');
+    }
+
+    function getSizeChart(){
+      return [
+        '青岛瀚博泰服饰',
+        '尺码表（通用参考）',
+        '',
+        '上衣（cm）：',
+        'S  衣长 66  胸围 96  肩宽 42',
+        'M  衣长 68  胸围 100 肩宽 44',
+        'L  衣长 70  胸围 104 肩宽 46',
+        'XL 衣长 72  胸围 108 肩宽 48',
+        '2XL衣长 74  胸围 112 肩宽 50',
+        '',
+        '裤装（cm）：',
+        'S 腰围 70-74  裤长 98',
+        'M 腰围 74-78  裤长 100',
+        'L 腰围 78-82  裤长 102',
+        'XL腰围 82-86  裤长 104',
+        '',
+        '说明：可提供量体/版型调整与专属尺码表。'
+      ].join('\\n');
+    }
+
+    function getProcessList(){
+      return [
+        '工艺清单（摘要）',
+        '',
+        'LOGO工艺：刺绣 / 丝印 / 热转印 / 织唛 / 章仔',
+        '功能配置：反光条 / 加固补片 / 防泼水 / 透气网布 / 防静电（按面料）',
+        '辅料：拉链/纽扣/魔术贴/松紧/抽绳/工牌位',
+        '',
+        '如需打样，请提交：数量、颜色、面料偏好、LOGO源文件与交期。'
+      ].join('\\n');
+    }
+
+    const obs = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
+

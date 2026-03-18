@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>海南海笙信息科技有限公司</title>
+  <style>
+    :root{
+      --bg:#05060b;
+      --panel: rgba(10, 12, 20, .78);
+      --panel2: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.10);
+      --text:#e8f2ff;
+      --muted: rgba(232,242,255,.72);
+      --neon1:#00e5ff;
+      --neon2:#ff2bd6;
+      --neon3:#9bff00;
+      --warn:#ffcc00;
+      --radius: 18px;
+      --radius2: 14px;
+      --shadow: 0 22px 70px rgba(0,0,0,.65);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: ui-sans-serif, -apple-system, "PingFang SC","Microsoft YaHei", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 560px at 20% -10%, rgba(0,229,255,.25), transparent 60%),
+        radial-gradient(900px 560px at 110% 0%, rgba(255,43,214,.22), transparent 55%),
+        radial-gradient(900px 560px at 60% 120%, rgba(155,255,0,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.03), transparent 45%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 22px}
+
+    /* 网格与故障线 */
+    .grid{
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px) 0 0/58px 58px,
+        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px) 0 0/58px 58px;
+      mask-image: radial-gradient(700px 420px at 40% 10%, #000 35%, transparent 70%);
+      opacity:.7;
+    }
+    .scan{
+      position:fixed;left:-20%;right:-20%;
+      height:180px;top:-180px;
+      background: linear-gradient(180deg, transparent, rgba(0,229,255,.12), transparent);
+      filter: blur(0.3px);
+      animation: scan 7s linear infinite;
+      pointer-events:none;z-index:0;mix-blend-mode: screen;
+    }
+    @keyframes scan{
+      0%{transform: translateY(0)}
+      100%{transform: translateY(calc(100vh + 360px))}
+    }
+
+    /* 顶栏 */
+    header{
+      position:sticky;top:0;z-index:1000;
+      background: rgba(5,6,11,.74);
+      border-bottom: 1px solid rgba(0,229,255,.18);
+      backdrop-filter: blur(12px);
+    }
+    .top{
+      height:78px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      padding:10px 12px;border-radius: 16px;
+      background: linear-gradient(135deg, rgba(0,229,255,.10), rgba(255,43,214,.08));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 60px rgba(0,229,255,.08);
+    }
+    .logo{
+      width:46px;height:46px;border-radius: 14px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:1000;letter-spacing:1px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 55%),
+                  linear-gradient(135deg, var(--neon1), var(--neon2));
+      color:#071018;
+      text-shadow: 0 0 16px rgba(0,229,255,.28);
+      position:relative;
+    }
+    .logo::after{
+      content:"";
+      position:absolute;inset:-2px;border-radius: 16px;
+      border: 1px solid rgba(0,229,255,.35);
+      filter: drop-shadow(0 0 14px rgba(0,229,255,.25));
+    }
+    .name{font-weight:1000;letter-spacing:.5px}
+    .sub{font-size:.78rem;color:var(--muted);letter-spacing:2px;margin-top:2px}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{
+      display:block;padding:10px 14px;border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-weight:900;letter-spacing:.4px;
+      transition: transform .18s, background .18s, color .18s, box-shadow .18s;
+      position:relative;
+    }
+    nav a:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      box-shadow: 0 0 0 2px rgba(0,229,255,.12);
+    }
+    nav a.cta{
+      background: linear-gradient(135deg, rgba(0,229,255,.95), rgba(155,255,0,.75));
+      color:#041016;border-color: transparent;
+      box-shadow: 0 18px 50px rgba(0,229,255,.18);
+    }
+    nav a.cta:hover{color:#041016}
+
+    main, section, footer{position:relative;z-index:2}
+
+    /* 英雄 */
+    .hero{padding:72px 0 34px}
+    .hero-grid{display:grid;grid-template-columns: 1.12fr .88fr;gap:14px;align-items:stretch}
+    .panel{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;inset:-2px;
+      background:
+        linear-gradient(90deg, transparent, rgba(0,229,255,.08), transparent),
+        linear-gradient(180deg, transparent, rgba(255,43,214,.07), transparent);
+      opacity:.7;
+      pointer-events:none;
+      transform: rotate(-6deg);
+    }
+    .chip{
+      position:relative;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius: 999px;
+      background: rgba(0,229,255,.08);
+      border: 1px solid rgba(0,229,255,.20);
+      color: rgba(232,242,255,.92);
+      font-weight:900;letter-spacing:1px;font-size:.82rem;
+      box-shadow: 0 0 0 2px rgba(0,229,255,.06);
+    }
+    h1{
+      position:relative;
+      font-size: 3.0rem;
+      line-height:1.08;
+      letter-spacing:.6px;
+      margin-top:14px;
+    }
+    .neon{
+      background: linear-gradient(135deg, var(--neon1), var(--neon2), var(--neon3));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:1000;
+      text-shadow: 0 0 22px rgba(0,229,255,.18);
+    }
+    .lead{
+      position:relative;
+      margin-top:14px;
+      color: var(--muted);
+      font-size:1.05rem;
+      line-height:1.85;
+      max-width: 70ch;
+    }
+    .actions{position:relative;display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border:none;cursor:pointer;
+      padding:12px 16px;border-radius: 999px;
+      font-weight:1000;letter-spacing:.5px;
+      transition: transform .18s, filter .18s, box-shadow .18s;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+    }
+    .btn:hover{transform: translateY(-2px);filter: brightness(1.1)}
+    .btn.primary{
+      background: linear-gradient(135deg, var(--neon1), var(--neon2));
+      color:#061018;border-color: transparent;
+      box-shadow: 0 18px 60px rgba(0,229,255,.12);
+    }
+    .btn.ghost{
+      background: rgba(155,255,0,.10);
+      border-color: rgba(155,255,0,.22);
+      color: rgba(232,242,255,.92);
+    }
+    .btn.warn{
+      background: rgba(255,204,0,.10);
+      border-color: rgba(255,204,0,.26);
+      color: rgba(255,230,160,.96);
+    }
+
+    .metrics{display:grid;grid-template-columns: repeat(2, 1fr);gap:12px;margin-top:14px;position:relative}
+    .m{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 14px;
+    }
+    .m .num{
+      font-size:2.0rem;font-weight:1000;letter-spacing:.5px;
+      color: rgba(232,242,255,.96);
+    }
+    .m .num span{color: rgba(232,242,255,.55);font-size:1.1rem}
+    .m .lab{color:var(--muted);font-size:.86rem;margin-top:6px;line-height:1.6}
+
+    /* 分区 */
+    section{padding:58px 0}
+    .head{margin-bottom:14px}
+    .kicker{
+      font-size:.82rem;letter-spacing:4px;text-transform:uppercase;
+      color: rgba(232,242,255,.86);
+      display:flex;align-items:center;gap:10px;
+      font-weight:1000;
+    }
+    .kicker::before{
+      content:"";width:16px;height:2px;border-radius:2px;
+      background: linear-gradient(90deg, var(--neon1), var(--neon2));
+      box-shadow: 0 0 24px rgba(0,229,255,.12);
+    }
+    .h2{font-size:2.2rem;letter-spacing:.5px;margin-top:10px}
+    .sub2{color:var(--muted);margin-top:10px;line-height:1.85;max-width: 84ch}
+
+    .grid3{display:grid;grid-template-columns: repeat(3, 1fr);gap:14px;margin-top:14px}
+    .tile{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+      cursor:pointer;
+      transition: transform .18s, background .18s, box-shadow .18s;
+      position:relative;
+      overflow:hidden;
+    }
+    .tile:hover{transform: translateY(-3px);background: rgba(255,255,255,.07);box-shadow: 0 0 0 2px rgba(0,229,255,.10)}
+    .tile .ico{
+      width:52px;height:52px;border-radius: 18px;
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg, rgba(0,229,255,.18), rgba(255,43,214,.14));
+      border: 1px solid rgba(255,255,255,.12);
+      font-size:1.4rem;
+      margin-bottom: 12px;
+      position:relative;
+    }
+    .tile h3{font-size:1.1rem;font-weight:1000;letter-spacing:.4px}
+    .tile p{color:var(--muted);margin-top:8px;line-height:1.75;font-size:.92rem}
+    .mini{margin-top:12px;display:flex;align-items:center;justify-content:space-between;color:rgba(232,242,255,.78);font-weight:1000;font-size:.88rem}
+    .pill{
+      padding:6px 10px;border-radius: 999px;
+      background: rgba(0,229,255,.10);
+      border: 1px solid rgba(0,229,255,.22);
+      font-weight:1000;letter-spacing:1px;font-size:.72rem;
+    }
+
+    /* 产品展示 */
+    .products{
+      display:grid;grid-template-columns: 1fr 1fr;gap:14px;margin-top:14px;
+    }
+    .shot{
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      position:relative;
+      min-height: 320px;
+    }
+    .shot img{width:100%;height:100%;object-fit:cover;display:block;filter: saturate(1.05) contrast(1.02)}
+    .shot::after{
+      content:"";position:absolute;inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.62), rgba(0,0,0,.08));
+      pointer-events:none;
+    }
+    .shot .cap{
+      position:absolute;left:18px;right:18px;bottom:16px;z-index:2;
+      color:#fff;
+    }
+    .shot .cap .t{font-weight:1000;letter-spacing:.4px;font-size:1.15rem}
+    .shot .cap .d{opacity:.85;margin-top:6px;line-height:1.7}
+
+    /* 联系 */
+    .contact{
+      display:grid;grid-template-columns: 1fr 1fr;gap:14px;
+    }
+    .box{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    label{display:block;margin:10px 0 6px;font-weight:1000;letter-spacing:.5px;color: rgba(232,242,255,.88);font-size:.82rem}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.26);
+      color: var(--text);
+      outline:none;
+      font-family: inherit;
+      transition: box-shadow .18s, border-color .18s;
+    }
+    textarea{min-height:96px;resize:vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(0,229,255,.45);
+      box-shadow: 0 0 0 4px rgba(0,229,255,.16);
+    }
+    .row{display:grid;grid-template-columns: 1fr 1fr;gap:10px}
+
+    footer{
+      padding: 26px 0 44px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(232,242,255,.55);
+      font-size:.86rem;
+    }
+    .foot{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:16px}
+    .foot a{color: rgba(232,242,255,.80);font-weight:1000}
+
+    /* 模态 */
+    .modal-bg{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background: rgba(0,0,0,.66);
+      backdrop-filter: blur(10px);
+      align-items:center;justify-content:center;
+      padding: 20px;
+    }
+    .modal-bg.show{display:flex}
+    .modal{
+      width:min(640px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 40px 130px rgba(0,0,0,.72);
+      padding: 22px;
+      position:relative;
+    }
+    .modal .x{
+      position:absolute;top:12px;right:12px;
+      width:40px;height:40px;border-radius: 14px;border:none;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      cursor:pointer;font-weight:1000;
+    }
+    .modal h3{font-size:1.35rem;font-weight:1000;letter-spacing:.4px}
+    .modal p{color:var(--muted);margin-top:10px;line-height:1.85}
+    .modal .bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .modal .bar .btn{flex:1}
+
+    /* glitch */
+    .glitch{
+      position:relative;display:inline-block;
+    }
+    .glitch::before,.glitch::after{
+      content: attr(data-text);
+      position:absolute;left:0;top:0;
+      opacity:.75;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    .glitch::before{
+      transform: translate(2px,-1px);
+      color: var(--neon1);
+      text-shadow: 0 0 18px rgba(0,229,255,.22);
+      animation: g1 2.8s infinite linear;
+    }
+    .glitch::after{
+      transform: translate(-2px,1px);
+      color: var(--neon2);
+      clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+      animation: g2 3.2s infinite linear;
+    }
+    @keyframes g1{
+      0%, 85%, 100%{opacity:.65}
+      86%{opacity:.15}
+      88%{opacity:.75}
+    }
+    @keyframes g2{
+      0%, 78%, 100%{opacity:.55}
+      79%{opacity:.1}
+      82%{opacity:.7}
+    }
+
+    .reveal{opacity:0;transform: translateY(14px);transition: opacity .55s ease, transform .55s ease}
+    .reveal.in{opacity:1;transform: translateY(0)}
+
+    @media (max-width: 980px){
+      nav ul{display:none}
+      .hero-grid{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .products{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+      h1{font-size:2.2rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <header>
+    <div class="container">
+      <div class="top">
+        <a class="brand" href="#home" onclick="go(event,'#home')">
+          <div class="logo">海笙</div>
+          <div>
+            <div class="name">海南海笙信息科技有限公司</div>
+            <div class="sub">Digital Platform · Data · Security</div>
+          </div>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#products" onclick="go(event,'#products')">产品</a></li>
+            <li><a href="#solutions" onclick="go(event,'#solutions')">解决方案</a></li>
+            <li><a href="#cases" onclick="go(event,'#cases')">客户案例</a></li>
+            <li><a href="#contact" onclick="go(event,'#contact')">联系</a></li>
+            <li><a class="cta" href="#contact" onclick="go(event,'#contact')">申请演示</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="panel reveal">
+          <span class="chip">⚡ Cyberpunk UI · 数据中台 · 安全可信</span>
+          <h1><span class="glitch neon" data-text="连接业务与数据">连接业务与数据</span><br>让系统更“快、稳、准”</h1>
+          <p class="lead">海南海笙信息科技有限公司聚焦政企数字化建设，提供平台化应用、数据治理、集成对接与安全运维服务，以“平台化交付 + 体系化安全 + 可持续运维”助力业务高效运行。</p>
+          <div class="actions">
+            <button class="btn primary" onclick="openLead('申请产品演示')">申请演示</button>
+            <button class="btn ghost" onclick="go(null,'#products')">查看产品矩阵</button>
+            <button class="btn warn" onclick="openModal('安全合规说明', '支持等级保护建设咨询、日志审计、漏洞治理、权限与账号体系优化，并提供制度/流程/技术一体化建议。', '🛡️')">安全合规</button>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <div class="head">
+            <div class="kicker">Metrics</div>
+            <div class="h2">交付能力</div>
+            <div class="sub2">以标准化方法论与可复用组件沉淀交付效率，保障持续可运营。</div>
+          </div>
+          <div class="metrics">
+            <div class="m">
+              <div class="num">30<span>+</span></div>
+              <div class="lab">系统集成与对接项目经验</div>
+            </div>
+            <div class="m">
+              <div class="num">99.9<span>%</span></div>
+              <div class="lab">可用性目标与运维保障</div>
+            </div>
+            <div class="m">
+              <div class="num">7×12</div>
+              <div class="lab">响应服务时段</div>
+            </div>
+            <div class="m">
+              <div class="num">1对1</div>
+              <div class="lab">架构师/实施顾问支持</div>
+            </div>
+          </div>
+          <div class="actions" style="margin-top:14px">
+            <button class="btn" onclick="downloadDoc('海南海笙-产品白皮书.txt', getWhitepaper())">下载白皮书</button>
+            <button class="btn primary" onclick="openModal('测试建议', '建议按导航依次进入：产品/解决方案/客户案例/联系；并点击每张卡片与表单提交，确认弹窗与滚动定位均正常。', '✅')">测试建议</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="products">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Products</div>
+        <div class="h2">产品矩阵</div>
+        <div class="sub2">面向“应用平台 + 数据底座 + 安全运维”的产品组合，支持快速落地与持续演进。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('统一门户与工作台', '多角色门户、事项入口、消息中心、单点登录与权限控制；支持组织/角色/数据权限分层与审计追踪。', '🧩')">
+          <div class="ico">🧩</div>
+          <h3>统一门户与工作台</h3>
+          <p>把分散系统整合到一个入口，提升办公效率与用户体验。</p>
+          <div class="mini"><span class="pill">PORTAL</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('数据中台与治理', '数据采集、血缘与质量、主数据、指标体系与可视化；支持数据标准、口径一致与质量规则自动化。', '🧠')">
+          <div class="ico">🧠</div>
+          <h3>数据中台与治理</h3>
+          <p>让数据可用、可信、可追溯，支撑业务分析与决策。</p>
+          <div class="mini"><span class="pill">DATA</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('安全运维与监控', '资产管理、日志审计、告警联动、漏洞治理与应急预案；支持可观测指标、链路排障与工单闭环。', '🛡️')">
+          <div class="ico">🛡️</div>
+          <h3>安全运维与监控</h3>
+          <p>可观测、可审计、可追责，保障系统稳定与安全。</p>
+          <div class="mini"><span class="pill">SECOPS</span><span>点击查看 →</span></div>
+        </div>
+      </div>
+
+      <div class="products">
+        <div class="shot reveal">
+          <img alt="数据中心" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80" />
+          <div class="cap">
+            <div class="t">平台化交付</div>
+            <div class="d">模块化组件与标准接口，缩短集成周期与维护成本。</div>
+          </div>
+        </div>
+        <div class="shot reveal">
+          <img alt="网络安全" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80" />
+          <div class="cap">
+            <div class="t">安全可信</div>
+            <div class="d">权限、日志、审计与告警联动，守住业务底线。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solutions">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Solutions</div>
+        <div class="h2">行业解决方案</div>
+        <div class="sub2">围绕政企应用：业务协同、数据共享、流程贯通与安全运维一体化。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('园区/企业协同平台', '统一入口、流程审批、消息与事项协同；对接OA/ERP/财务等系统，支持组织/权限/流程模板沉淀。', '🏙️')">
+          <div class="ico">🏙️</div>
+          <h3>园区/企业协同平台</h3>
+          <p>统一门户 + 流程贯通 + 集成对接，提升协作效率。</p>
+          <div class="mini"><span class="pill">FLOW</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('数据共享交换', '多源采集、标准化治理、共享交换与数据服务目录；支持API网关、授权策略与访问审计。', '🔁')">
+          <div class="ico">🔁</div>
+          <h3>数据共享交换</h3>
+          <p>建立数据标准与目录体系，让数据“找得到、用得起”。</p>
+          <div class="mini"><span class="pill">API</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('安全运维托管', '监控告警、巡检、漏洞治理、应急演练与持续优化；提供周/月报与问题闭环。', '🧯')">
+          <div class="ico">🧯</div>
+          <h3>安全运维托管</h3>
+          <p>用可观测体系与流程化运维，保障稳定运行。</p>
+          <div class="mini"><span class="pill">SRE</span><span>点击查看 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Cases</div>
+        <div class="h2">客户案例</div>
+        <div class="sub2">覆盖门户整合、数据治理与安全运维等项目场景，强调可持续运营与可审计能力。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('案例A：门户整合', '将多个业务系统纳入统一门户入口，实现单点登录、统一消息与待办聚合；用户体验与访问效率显著提升。', '🏆')">
+          <div class="ico">🏆</div>
+          <h3>案例A：门户整合</h3>
+          <p>统一入口/消息中心/权限体系，显著提升日常办公效率。</p>
+          <div class="mini"><span class="pill">LIVE</span><span>查看详情 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('案例B：数据治理', '建立指标体系与数据质量规则，实现血缘追溯与口径统一；支持持续监控与质量闭环。', '📊')">
+          <div class="ico">📊</div>
+          <h3>案例B：数据治理</h3>
+          <p>数据标准/血缘/质量闭环，让数据可用、可信。</p>
+          <div class="mini"><span class="pill">DQ</span><span>查看详情 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('案例C：安全运维', '统一监控与告警联动，落实审计与应急预案；形成可执行的巡检与应急演练机制。', '🛡️')">
+          <div class="ico">🛡️</div>
+          <h3>案例C：安全运维</h3>
+          <p>可观测+流程化运维，保障系统稳定与安全。</p>
+          <div class="mini"><span class="pill">SOC</span><span>查看详情 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Contact</div>
+        <div class="h2">联系与演示申请</div>
+        <div class="sub2">提交表单会弹窗提示（用于按钮测试）。</div>
+      </div>
+      <div class="contact">
+        <div class="box reveal">
+          <div style="font-size:1.2rem;font-weight:1000;letter-spacing:.4px">快速联系</div>
+          <p style="color:var(--muted);margin-top:10px;line-height:1.85">
+            - 电话：0898-6688-3276<br>
+            - 邮箱：bd@haishengit.com<br>
+            - 地址：海南省海口市龙华区（科技产业园区）
+          </p>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn primary" onclick="openModal('电话咨询', '已为你准备业务对接专线：0898-6688-3276。工作时间 9:00—18:00。', '☎️')">电话咨询</button>
+            <button class="btn" onclick="downloadDoc('海南海笙-产品手册.txt', getBrochure())">下载资料</button>
+            <button class="btn ghost" onclick="openModal('售后与运维', '支持监控告警、巡检、应急响应与优化建议，并提供周/月度运维报告与问题闭环。', '🧰')">售后运维</button>
+          </div>
+        </div>
+        <div class="box reveal">
+          <form onsubmit="submitForm(event)">
+            <div class="row">
+              <div>
+                <label>联系人 *</label>
+                <input required placeholder="请输入姓名" />
+              </div>
+              <div>
+                <label>联系电话 *</label>
+                <input required placeholder="请输入手机号" />
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label>需求类型 *</label>
+                <select required>
+                  <option value="">请选择</option>
+                  <option>申请产品演示</option>
+                  <option>获取报价</option>
+                  <option>系统集成咨询</option>
+                  <option>安全运维服务</option>
+                </select>
+              </div>
+              <div>
+                <label>行业</label>
+                <select>
+                  <option>政务</option>
+                  <option>园区/企业</option>
+                  <option>教育</option>
+                  <option>医疗</option>
+                  <option>其他</option>
+                </select>
+              </div>
+            </div>
+            <label>需求说明</label>
+            <textarea placeholder="请描述目标、现状系统、对接接口与时间计划"></textarea>
+            <div class="actions">
+              <button class="btn primary" style="flex:1" type="submit">提交申请</button>
+              <button class="btn" style="flex:1" type="button" onclick="openModal('验收提示', '建议逐项点击：导航 → 卡片 → 按钮 → 表单提交，观察是否出现弹窗与滚动定位。完成后我会统一做自动化点击测试。', '✅')">验收提示</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© 2025 海南海笙信息科技有限公司</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#home" onclick="go(event,'#home')">返回顶部</a>
+          <a href="#contact" onclick="go(event,'#contact')">联系</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-bg" id="m" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="x" onclick="hideModal()">✕</button>
+      <div class="chip" id="m-ico">ℹ️ 信息</div>
+      <h3 id="m-t" style="margin-top:10px">标题</h3>
+      <p id="m-b">内容</p>
+      <div class="bar">
+        <button class="btn" onclick="hideModal()">关闭</button>
+        <button class="btn primary" onclick="openModal('继续探索', '你可以继续点击页面的卡片和按钮进行功能测试。', '🧭')">继续探索</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function go(e, id){
+      if(e) e.preventDefault();
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    function openModal(title, body, ico){
+      document.getElementById('m-t').textContent = title || '提示';
+      document.getElementById('m-b').textContent = body || '';
+      document.getElementById('m-ico').textContent = (ico || 'ℹ️') + '  信息';
+      document.getElementById('m').classList.add('show');
+    }
+    function hideModal(){ document.getElementById('m').classList.remove('show'); }
+    function closeModal(e){ if(e.target === document.getElementById('m')) hideModal(); }
+
+    function genRef(prefix){
+      const d = new Date();
+      const pad = (n)=>String(n).padStart(2,'0');
+      const base = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const rnd = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${prefix}-${base}-${rnd}`;
+    }
+
+    function saveLead(payload){
+      const key = 'haisheng_leads';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      list.unshift(payload);
+      localStorage.setItem(key, JSON.stringify(list.slice(0,200)));
+    }
+
+    function openLead(type){
+      const ref = genRef('HS');
+      saveLead({ ref, type, at: new Date().toISOString() });
+      openModal('✅ 已提交', `已生成申请单号：${ref}。我们将在1个工作日内与您联系，请保持电话畅通。`, '✅');
+    }
+
+    function submitForm(e){
+      e.preventDefault();
+      const form = e.target;
+      const ref = genRef('HS');
+      const data = {
+        ref,
+        at: new Date().toISOString(),
+        name: form.querySelector('input[placeholder=\"请输入姓名\"]').value.trim(),
+        phone: form.querySelector('input[placeholder=\"请输入手机号\"]').value.trim(),
+        type: form.querySelector('select[required]').value,
+        industry: form.querySelectorAll('select')[1].value,
+        detail: form.querySelector('textarea').value.trim()
+      };
+      saveLead(data);
+      openModal('✅ 提交成功', `已生成工单号：${ref}。我们将尽快安排对接，并通过电话确认需求与演示时间。`, '✅');
+      form.reset();
+    }
+
+    function downloadDoc(filename, content){
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+      openModal('📄 下载已开始', `文件已生成：${filename}`, '📄');
+    }
+
+    function getWhitepaper(){
+      return [
+        '海南海笙信息科技有限公司',
+        '产品白皮书',
+        '',
+        '一、总体能力',
+        '- 统一门户与工作台：SSO、待办聚合、消息中心、权限审计',
+        '- 数据中台与治理：采集接入、标准/口径、质量规则、血缘追溯、指标体系',
+        '- 安全运维与监控：资产管理、日志审计、告警联动、漏洞治理、应急预案',
+        '',
+        '二、交付方法',
+        '- 平台化组件沉淀、接口标准化、流程模板化、持续迭代与可运营',
+        '',
+        '三、服务保障',
+        '- 运维值守、巡检与周/月报、故障应急响应、持续优化建议',
+      ].join('\\n');
+    }
+
+    function getBrochure(){
+      return [
+        '海南海笙信息科技有限公司',
+        '产品手册（摘要）',
+        '',
+        '1. 统一门户与工作台',
+        '2. 数据中台与治理',
+        '3. 安全运维与监控',
+        '',
+        '联系方式：0898-6688-3276 / bd@haishengit.com'
+      ].join('\\n');
+    }
+
+    // reveal
+    const obs = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
+

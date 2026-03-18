@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>海南创业爸爸众创空间有限公司</title>
+  <style>
+    :root{
+      --bg:#070a12;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.10);
+      --text:#eaf1ff;
+      --muted: rgba(234,241,255,.70);
+      --line: rgba(255,255,255,.10);
+      --a:#7c5cff;
+      --b:#25d7ff;
+      --c:#ff4dd8;
+      --ok:#43fda4;
+      --radius: 22px;
+      --radius2: 16px;
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: ui-sans-serif, -apple-system, "PingFang SC","Microsoft YaHei", system-ui, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(124,92,255,.30), transparent 60%),
+                  radial-gradient(1000px 700px at 110% 0%, rgba(37,215,255,.22), transparent 55%),
+                  radial-gradient(1200px 800px at 50% 110%, rgba(255,77,216,.18), transparent 60%),
+                  var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 22px}
+
+    /* 顶栏 */
+    header{
+      position:sticky;top:0;z-index:1000;
+      background: rgba(7,10,18,.75);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .top{
+      height:78px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      padding:10px 12px;border-radius: 18px;
+      background: linear-gradient(135deg, rgba(124,92,255,.20), rgba(37,215,255,.12));
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .logo{
+      width:46px;height:46px;border-radius: 16px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;letter-spacing:1px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%),
+                  linear-gradient(135deg, var(--a), var(--b));
+      box-shadow: 0 18px 50px rgba(124,92,255,.25);
+    }
+    .name{font-weight:900;letter-spacing:.5px}
+    .sub{font-size:.78rem;color:var(--muted);letter-spacing:2px;margin-top:2px}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{
+      display:block;padding:10px 14px;border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight:800;letter-spacing:.4px;
+      transition: transform .18s, background .18s, color .18s;
+    }
+    nav a:hover{transform: translateY(-2px);background: rgba(255,255,255,.08);color: var(--text)}
+    nav a.cta{
+      background: linear-gradient(135deg, var(--a), var(--c));
+      color:#0b0f1d;
+      border-color: transparent;
+      box-shadow: 0 14px 40px rgba(255,77,216,.18);
+    }
+    nav a.cta:hover{color:#0b0f1d}
+
+    /* 生成式背景画布 */
+    .bg-canvas{
+      position:fixed;inset:0;z-index:0;
+      pointer-events:none;
+      opacity:.75;
+    }
+    .grain{
+      position:fixed;inset:0;z-index:1;pointer-events:none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.22;
+    }
+
+    main, section, footer{position:relative;z-index:2}
+
+    /* 英雄 */
+    .hero{padding:70px 0 34px}
+    .hero-grid{display:grid;grid-template-columns: 1.15fr .85fr;gap:18px;align-items:stretch}
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      overflow:hidden;
+      position:relative;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--muted);
+      font-weight:800;letter-spacing:1px;font-size:.82rem;
+    }
+    h1{
+      font-size: 3.0rem;
+      line-height:1.1;
+      letter-spacing:.6px;
+      margin-top:14px;
+    }
+    .grad{
+      background: linear-gradient(135deg, var(--b), var(--c), var(--a));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:1000;
+    }
+    .lead{
+      margin-top:14px;
+      color: var(--muted);
+      font-size:1.05rem;
+      line-height:1.85;
+      max-width: 66ch;
+    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      border:none;cursor:pointer;
+      padding:12px 16px;border-radius: 999px;
+      font-weight:900;letter-spacing:.5px;
+      transition: transform .18s, filter .18s;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+    }
+    .btn:hover{transform: translateY(-2px);filter: brightness(1.1)}
+    .btn.primary{
+      background: linear-gradient(135deg, var(--ok), var(--b));
+      color: #071012;
+      border-color: transparent;
+    }
+    .btn.hot{
+      background: linear-gradient(135deg, var(--c), var(--a));
+      color: #0b0f1d;
+      border-color: transparent;
+    }
+    .btn:focus{outline:none;box-shadow: 0 0 0 4px rgba(37,215,255,.18)}
+
+    .stats{display:grid;grid-template-columns: repeat(2, 1fr);gap:12px;margin-top:16px}
+    .stat{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 14px;
+    }
+    .stat .num{font-size:2.0rem;font-weight:1000;letter-spacing:.5px}
+    .stat .lab{color:var(--muted);font-size:.86rem;margin-top:6px;line-height:1.6}
+    .stat .num span{color: rgba(255,255,255,.65);font-size:1.1rem}
+
+    /* 分区 */
+    section{padding:60px 0}
+    .head{margin-bottom:14px}
+    .kicker{
+      font-size:.82rem;letter-spacing:4px;text-transform:uppercase;
+      color: rgba(234,241,255,.85);
+      display:flex;align-items:center;gap:10px;
+      font-weight:1000;
+    }
+    .kicker::before{
+      content:"";width:16px;height:2px;border-radius:2px;
+      background: linear-gradient(90deg, var(--b), var(--c));
+    }
+    .h2{font-size:2.2rem;letter-spacing:.5px;margin-top:10px}
+    .sub2{color:var(--muted);margin-top:10px;line-height:1.85;max-width: 78ch}
+    .grid3{display:grid;grid-template-columns: repeat(3, 1fr);gap:14px;margin-top:14px}
+    .tile{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+      cursor:pointer;
+      transition: transform .18s, background .18s;
+      position:relative;
+      overflow:hidden;
+    }
+    .tile:hover{transform: translateY(-3px);background: rgba(255,255,255,.08)}
+    .tile .ico{
+      width:52px;height:52px;border-radius: 18px;
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg, rgba(37,215,255,.20), rgba(255,77,216,.16));
+      border: 1px solid rgba(255,255,255,.14);
+      font-size:1.4rem;
+      margin-bottom: 12px;
+    }
+    .tile h3{font-size:1.1rem;font-weight:1000;letter-spacing:.4px}
+    .tile p{color:var(--muted);margin-top:8px;line-height:1.75;font-size:.92rem}
+    .mini{margin-top:12px;display:flex;align-items:center;justify-content:space-between;color:rgba(234,241,255,.75);font-weight:900;font-size:.88rem}
+    .pill{
+      padding:6px 10px;border-radius: 999px;
+      background: rgba(124,92,255,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      font-weight:1000;letter-spacing:1px;font-size:.72rem;
+    }
+
+    /* 活动横幅 */
+    .banner{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(124,92,255,.26), rgba(37,215,255,.14), rgba(255,77,216,.18));
+      padding: 20px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      box-shadow: var(--shadow);
+    }
+    .banner .t{font-size:1.45rem;font-weight:1000;letter-spacing:.4px}
+    .banner .d{color:var(--muted);margin-top:6px;line-height:1.7}
+
+    /* 联系 */
+    .contact{
+      display:grid;grid-template-columns: 1fr 1fr;gap:14px;
+    }
+    .box{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 18px;
+    }
+    label{display:block;margin:10px 0 6px;font-weight:1000;letter-spacing:.5px;color: rgba(234,241,255,.86);font-size:.82rem}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      outline:none;
+      font-family: inherit;
+      transition: box-shadow .18s, border-color .18s;
+    }
+    textarea{min-height:96px;resize:vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(37,215,255,.45);
+      box-shadow: 0 0 0 4px rgba(37,215,255,.16);
+    }
+    .row{display:grid;grid-template-columns: 1fr 1fr;gap:10px}
+
+    footer{
+      padding: 26px 0 44px;
+      border-top: 1px solid var(--line);
+      color: rgba(234,241,255,.55);
+      font-size:.86rem;
+    }
+    .foot{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:16px}
+    .foot a{color: rgba(234,241,255,.80);font-weight:1000}
+
+    /* 模态 */
+    .modal-bg{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(8px);
+      align-items:center;justify-content:center;
+      padding: 20px;
+    }
+    .modal-bg.show{display:flex}
+    .modal{
+      width:min(620px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 40px 120px rgba(0,0,0,.55);
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .modal .x{
+      position:absolute;top:12px;right:12px;
+      width:40px;height:40px;border-radius: 14px;border:none;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      cursor:pointer;font-weight:1000;
+    }
+    .modal h3{font-size:1.35rem;font-weight:1000;letter-spacing:.4px}
+    .modal p{color:var(--muted);margin-top:10px;line-height:1.85}
+    .modal .bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .modal .bar .btn{flex:1}
+
+    /* reveal */
+    .reveal{opacity:0;transform: translateY(16px);transition: opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1;transform: translateY(0)}
+
+    @media (max-width: 980px){
+      nav ul{display:none}
+      .hero-grid{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+      h1{font-size:2.2rem}
+    }
+  </style>
+</head>
+<body>
+  <canvas class="bg-canvas" id="bg"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="container">
+      <div class="top">
+        <a class="brand" href="#home" onclick="go(event,'#home')">
+          <div class="logo">创</div>
+          <div>
+            <div class="name">海南创业爸爸众创空间</div>
+            <div class="sub">Co-working · Incubation · Community</div>
+          </div>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#space" onclick="go(event,'#space')">空间服务</a></li>
+            <li><a href="#incubation" onclick="go(event,'#incubation')">孵化体系</a></li>
+            <li><a href="#events" onclick="go(event,'#events')">活动社区</a></li>
+            <li><a href="#contact" onclick="go(event,'#contact')">入驻咨询</a></li>
+            <li><a class="cta" href="#contact" onclick="go(event,'#contact')">立即预约参观</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="card reveal">
+          <span class="chip">🌀 Generative Art · 创业生态 · 海岛创新</span>
+          <h1>让创业<br><span class="grad">在海南发光</span></h1>
+          <p class="lead">海南创业爸爸众创空间有限公司提供办公空间、项目孵化、投融资对接与创业社群服务，打造“空间 + 服务 + 资源”的一体化创业支持平台。</p>
+          <div class="actions">
+            <button class="btn primary" onclick="openVisit()">预约参观</button>
+            <button class="btn hot" onclick="go(null,'#space')">查看空间服务</button>
+            <button class="btn" onclick="openModal('会员权益', '会员权益包含：工位/会议室优惠、活动优先席位、资源对接、导师诊断与项目路演推荐等。', '🎫')">会员权益</button>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <div class="num">120+ <span>团队</span></div>
+              <div class="lab">入驻与服务创业团队</div>
+            </div>
+            <div class="stat">
+              <div class="num">80+ <span>场</span></div>
+              <div class="lab">年度路演/培训/沙龙</div>
+            </div>
+            <div class="stat">
+              <div class="num">6 <span>大</span></div>
+              <div class="lab">孵化模块：法务/财税/品牌/投融/招采/增长</div>
+            </div>
+            <div class="stat">
+              <div class="num">1对1</div>
+              <div class="lab">创业导师陪跑与诊断</div>
+            </div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="head">
+            <div class="kicker">Highlights</div>
+            <div class="h2">一站式创业加速</div>
+            <div class="sub2">点击任意卡片查看“弹窗详情”，用于功能按钮测试。</div>
+          </div>
+          <div class="grid3" style="grid-template-columns:1fr;gap:12px;margin-top:10px">
+            <div class="tile" onclick="openModal('灵活工位/独立办公室', '按月/按季租赁，支持工位升级与团队扩容；配套网络、打印、前台与茶水区。', '🪑')">
+              <div class="ico">🪑</div>
+              <h3>灵活空间</h3>
+              <p>工位、独立办公室、会议室与活动场地</p>
+              <div class="mini"><span class="pill">SPACE</span><span>点击查看 →</span></div>
+            </div>
+            <div class="tile" onclick="openModal('投融对接与路演', '提供BP优化、路演训练、投资人对接与Demo Day，帮助项目更快获得资源。', '💡')">
+              <div class="ico">💡</div>
+              <h3>投融对接</h3>
+              <p>导师陪跑 + 路演机制 + 资源池匹配</p>
+              <div class="mini"><span class="pill">FUND</span><span>点击查看 →</span></div>
+            </div>
+            <div class="tile" onclick="openModal('创业服务中台', '财税法务、用工合规、知识产权、政府申报、品牌与增长支持。', '🧰')">
+              <div class="ico">🧰</div>
+              <h3>服务中台</h3>
+              <p>标准化服务包 + 个性化问题诊断</p>
+              <div class="mini"><span class="pill">OPS</span><span>点击查看 →</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="space">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Space</div>
+        <div class="h2">空间服务</div>
+        <div class="sub2">为不同阶段团队提供从工位到独立办公室的弹性选择，支持快速扩容与按需配置。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('开放工位', '适合个人与小团队：高速网络、共享会议室时长、社群活动名额与资源对接。','🧑‍💻')">
+          <div class="ico">🧑‍💻</div>
+          <h3>开放工位</h3>
+          <p>日租/月租，随时进驻，轻量启动。</p>
+          <div class="mini"><span class="pill">HOTDESK</span><span>查看价格 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('独立办公室', '适合3-20人团队：可扩容、可定制门牌与储物、会议室配额与访客管理。','🏢')">
+          <div class="ico">🏢</div>
+          <h3>独立办公室</h3>
+          <p>更强隐私与团队氛围，支持品牌展示。</p>
+          <div class="mini"><span class="pill">OFFICE</span><span>查看户型 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('会议与活动空间', '支持路演、培训、沙龙与发布会：投影/音响/直播支持与场务运营协助。','🎤')">
+          <div class="ico">🎤</div>
+          <h3>会议与活动</h3>
+          <p>小时计费/包场，提供布置与运营支持。</p>
+          <div class="mini"><span class="pill">EVENT</span><span>预约档期 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="incubation">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Incubation</div>
+        <div class="h2">孵化体系</div>
+        <div class="sub2">“诊断—目标—行动—复盘”的陪跑模型，让团队更快跑通商业闭环。</div>
+      </div>
+      <div class="grid3">
+        <div class="tile reveal" onclick="openModal('项目诊断', '从产品、市场、商业模式、团队与融资可行性做系统诊断，输出行动清单与里程碑。','🩺')">
+          <div class="ico">🩺</div>
+          <h3>项目诊断</h3>
+          <p>明确当前问题与关键假设，形成行动计划。</p>
+          <div class="mini"><span class="pill">CHECK</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('导师陪跑', '匹配产业导师与增长导师，1对1辅导与每周复盘，推动关键指标落地。','🧭')">
+          <div class="ico">🧭</div>
+          <h3>导师陪跑</h3>
+          <p>以结果为导向，推动关键里程碑达成。</p>
+          <div class="mini"><span class="pill">MENTOR</span><span>点击查看 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('投融对接', 'BP优化、路演训练、投资人匹配与节奏建议，提升融资效率与成功率。','💸')">
+          <div class="ico">💸</div>
+          <h3>投融对接</h3>
+          <p>更高效连接资本与资源，缩短融资周期。</p>
+          <div class="mini"><span class="pill">PITCH</span><span>点击查看 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Community</div>
+        <div class="h2">活动与社群</div>
+        <div class="sub2">每周都有沙龙、分享与路演，让创业更有“同路人”。</div>
+      </div>
+      <div class="banner reveal">
+        <div>
+          <div class="t">本周：海岛创业增长公开课</div>
+          <div class="d">主题：从0到1冷启动、内容增长、投放模型与复盘体系。</div>
+        </div>
+        <button class="btn primary" onclick="openEvent()">立即报名</button>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="tile reveal" onclick="openModal('创业者早餐会', '小范围交流：产品/渠道/组织管理与资源互换，建立高密度同伴网络。','☕')">
+          <div class="ico">☕</div>
+          <h3>创业者早餐会</h3>
+          <p>每周一期，闭门交流，高密度信息。</p>
+          <div class="mini"><span class="pill">WEEKLY</span><span>查看详情 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('Demo Day 路演日', '项目路演 + 投资人点评 + 资源对接，形成持续的项目展示与对接机制。','🎬')">
+          <div class="ico">🎬</div>
+          <h3>Demo Day</h3>
+          <p>每月一期，让好项目被看见。</p>
+          <div class="mini"><span class="pill">MONTHLY</span><span>查看详情 →</span></div>
+        </div>
+        <div class="tile reveal" onclick="openModal('创业服务市集', '财税法务、知识产权、品牌设计、投放增长一站式咨询，现场快速答疑与方案建议。','🧾')">
+          <div class="ico">🧾</div>
+          <h3>创业服务市集</h3>
+          <p>把服务搬进空间，让问题快速解决。</p>
+          <div class="mini"><span class="pill">SERVICE</span><span>查看详情 →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="head reveal">
+        <div class="kicker">Contact</div>
+        <div class="h2">入驻咨询</div>
+        <div class="sub2">提交后将生成咨询单号，并自动保存到本地记录，便于跟进。</div>
+      </div>
+      <div class="contact">
+        <div class="box reveal">
+          <div style="font-size:1.2rem;font-weight:1000;letter-spacing:.4px">快速入口</div>
+          <p style="color:var(--muted);margin-top:10px;line-height:1.8">
+            - 咨询电话：0898-6866-9031<br>
+            - 邮箱：hello@chuangyebaba.com<br>
+            - 地址：海南省海口市（创新创业园区）
+          </p>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn hot" onclick="openModal('电话咨询', '已为你准备咨询专线：0898-6866-9031（9:00—18:00）。','☎️')">电话咨询</button>
+            <button class="btn" onclick="downloadDoc('创业爸爸-入驻手册.txt', getHandbook())">下载入驻手册</button>
+            <button class="btn primary" onclick="openModal('路线指引', '已为你准备园区路线指引：地铁/公交/自驾均可到达。到园区后联系前台即可接待参观。','🗺️')">路线指引</button>
+          </div>
+        </div>
+        <div class="box reveal">
+          <form onsubmit="submitForm(event)">
+            <div class="row">
+              <div>
+                <label>联系人 *</label>
+                <input required placeholder="请输入姓名" />
+              </div>
+              <div>
+                <label>联系电话 *</label>
+                <input required placeholder="请输入手机号" />
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label>团队规模</label>
+                <select>
+                  <option>1-2人</option>
+                  <option>3-5人</option>
+                  <option>6-10人</option>
+                  <option>10人以上</option>
+                </select>
+              </div>
+              <div>
+                <label>需求类型 *</label>
+                <select required>
+                  <option value="">请选择</option>
+                  <option>开放工位</option>
+                  <option>独立办公室</option>
+                  <option>会议/活动场地</option>
+                  <option>孵化/投融对接</option>
+                </select>
+              </div>
+            </div>
+            <label>补充说明</label>
+            <textarea placeholder="例如：参观日期、行业方向、是否需要路演对接"></textarea>
+            <div class="actions">
+              <button class="btn primary" style="flex:1" type="submit">提交咨询</button>
+              <button class="btn" style="flex:1" type="button" onclick="openModal('测试建议', '建议按导航依次进入：空间服务/孵化体系/活动社区/入驻咨询；并点击卡片与按钮、提交表单，确认弹窗与滚动定位正常。','✅')">测试建议</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© 2025 海南创业爸爸众创空间有限公司</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#home" onclick="go(event,'#home')">返回顶部</a>
+          <a href="#contact" onclick="go(event,'#contact')">入驻咨询</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-bg" id="m" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="x" onclick="hideModal()">✕</button>
+      <div class="chip" id="m-ico">ℹ️ 信息</div>
+      <h3 id="m-t" style="margin-top:10px">标题</h3>
+      <p id="m-b">内容</p>
+      <div class="bar">
+        <button class="btn" onclick="hideModal()">关闭</button>
+        <button class="btn primary" onclick="openModal('继续探索', '你可以继续点击页面的卡片和按钮进行功能测试。', '🧭')">继续探索</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function go(e, id){
+      if(e) e.preventDefault();
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    function openModal(title, body, ico){
+      document.getElementById('m-t').textContent = title || '提示';
+      document.getElementById('m-b').textContent = body || '';
+      document.getElementById('m-ico').textContent = (ico || 'ℹ️') + '  信息';
+      document.getElementById('m').classList.add('show');
+    }
+    function hideModal(){ document.getElementById('m').classList.remove('show'); }
+    function closeModal(e){ if(e.target === document.getElementById('m')) hideModal(); }
+
+    function genRef(prefix){
+      const d = new Date();
+      const pad = (n)=>String(n).padStart(2,'0');
+      const base = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const rnd = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${prefix}-${base}-${rnd}`;
+    }
+
+    function saveReq(payload){
+      const key = 'chuangyebaba_requests';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      list.unshift(payload);
+      localStorage.setItem(key, JSON.stringify(list.slice(0,200)));
+    }
+
+    function openVisit(){
+      const ref = genRef('CYB');
+      saveReq({ ref, type: '预约参观', at: new Date().toISOString() });
+      openModal('✅ 预约已创建', `预约单号：${ref}。我们将尽快与您确认参观时间与接待安排。`, '📅');
+    }
+
+  function openEvent(){
+    const ref = genRef('CYB-E');
+    saveReq({ ref, type: '活动报名', at: new Date().toISOString() });
+    openModal('✅ 报名成功', `报名编号：${ref}。我们将通过电话或短信确认活动信息与入场方式。`, '✅');
+  }
+
+    function submitForm(e){
+      e.preventDefault();
+      const form = e.target;
+      const ref = genRef('CYB');
+      const data = {
+        ref,
+        at: new Date().toISOString(),
+        name: form.querySelector('input[placeholder=\"请输入姓名\"]').value.trim(),
+        phone: form.querySelector('input[placeholder=\"请输入手机号\"]').value.trim(),
+        size: form.querySelectorAll('select')[0].value,
+        need: form.querySelectorAll('select')[1].value,
+        detail: form.querySelector('textarea').value.trim()
+      };
+      saveReq(data);
+      openModal('✅ 提交成功', `咨询单号：${ref}。我们将在1个工作日内与您联系，并提供入驻方案与参观安排。`, '✅');
+      form.reset();
+    }
+
+    function downloadDoc(filename, content){
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+      openModal('📄 下载已开始', `文件已生成：${filename}`, '📄');
+    }
+
+    function getHandbook(){
+      return [
+        '海南创业爸爸众创空间有限公司',
+        '入驻手册（摘要）',
+        '',
+        '一、空间类型',
+        '- 开放工位 / 独立办公室 / 会议室 / 活动场地',
+        '',
+        '二、基础配套',
+        '- 高速网络、前台接待、打印、茶水区、访客管理',
+        '',
+        '三、孵化服务',
+        '- 项目诊断、导师陪跑、投融对接、政策申报、财税法务、品牌与增长',
+        '',
+        '四、联系',
+        '- 电话：0898-6866-9031',
+        '- 邮箱：hello@chuangyebaba.com'
+      ].join('\\n');
+    }
+
+    // reveal
+    const obs = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // generative canvas
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let W=0,H=0,t=0;
+    const blobs = [];
+    function rand(a,b){ return a + Math.random()*(b-a); }
+    function resize(){
+      W = canvas.width = window.innerWidth * (window.devicePixelRatio||1);
+      H = canvas.height = window.innerHeight * (window.devicePixelRatio||1);
+      canvas.style.width = window.innerWidth+'px';
+      canvas.style.height = window.innerHeight+'px';
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale((window.devicePixelRatio||1),(window.devicePixelRatio||1));
+    }
+    function init(){
+      blobs.length = 0;
+      const n = 18;
+      for(let i=0;i<n;i++){
+        blobs.push({
+          x: rand(0, window.innerWidth),
+          y: rand(0, window.innerHeight),
+          r: rand(60, 220),
+          vx: rand(-.25, .25),
+          vy: rand(-.20, .20),
+          hue: rand(190, 320),
+          phase: rand(0, Math.PI*2)
+        });
+      }
+    }
+    function draw(){
+      t += 0.006;
+      ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+      ctx.globalCompositeOperation = 'lighter';
+      for(const b of blobs){
+        b.x += b.vx; b.y += b.vy;
+        if(b.x < -200) b.x = window.innerWidth+200;
+        if(b.x > window.innerWidth+200) b.x = -200;
+        if(b.y < -200) b.y = window.innerHeight+200;
+        if(b.y > window.innerHeight+200) b.y = -200;
+        const rr = b.r * (0.85 + 0.18*Math.sin(t + b.phase));
+        const g = ctx.createRadialGradient(b.x,b.y, 0, b.x,b.y, rr);
+        g.addColorStop(0, `hsla(${b.hue}, 95%, 62%, .18)`);
+        g.addColorStop(1, `hsla(${b.hue}, 95%, 62%, 0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(b.x,b.y, rr, 0, Math.PI*2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', ()=>{ resize(); init(); });
+    resize(); init(); draw();
+  </script>
+</body>
+</html>
+

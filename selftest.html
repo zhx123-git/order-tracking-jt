@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>外接系统官网 - 一键自测入口</title>
+  <style>
+    :root{
+      --bg:#0b1020;--card:#111a33;--text:#eaf1ff;--muted:rgba(234,241,255,.75);
+      --line:rgba(255,255,255,.10);--ok:#2cffb9;--warn:#ffcc00;
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: -apple-system, "PingFang SC","Microsoft YaHei", system-ui, sans-serif;
+      background: radial-gradient(900px 600px at 20% -10%, rgba(44,255,185,.12), transparent 60%),
+                  radial-gradient(900px 600px at 110% 0%, rgba(255,204,0,.10), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      padding: 28px 18px 60px;
+    }
+    .wrap{max-width:1100px;margin:0 auto}
+    h1{font-size:1.8rem;letter-spacing:.4px}
+    p{color:var(--muted);line-height:1.8;margin-top:10px}
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .card{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .card h2{font-size:1.08rem}
+    .meta{margin-top:8px;color:var(--muted);font-size:.9rem;line-height:1.7}
+    .btns{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+    a.btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing:.2px;
+    }
+    a.btn.primary{
+      background: linear-gradient(135deg, rgba(44,255,185,.95), rgba(44,155,255,.55));
+      color:#071018;
+      border-color: transparent;
+    }
+    .tips{
+      margin-top:18px;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      background: rgba(255,255,255,.03);
+    }
+    .tips b{color: var(--warn)}
+    ul{margin-top:10px; padding-left: 18px; color: var(--muted); line-height:1.9}
+    code{background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 8px}
+    @media (max-width: 860px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>外接系统官网 · 一键打开/自测入口</h1>
+    <p>说明：已在每个官网页面内置了“按钮/卡片/表单→反馈弹窗/结果页”的交互点，便于你在浏览器中快速完成逐按钮点击测试与验收。</p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>唐山市闪闪发光餐饮管理有限责任公司官网（复古）</h2>
+        <div class="meta">建议测试：导航跳转、菜品卡片弹窗、新闻弹窗、留言表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./唐山市闪闪发光餐饮管理有限责任公司官网/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>宜宾市叙州区覃天中西医结合门诊部（极简）</h2>
+        <div class="meta">建议测试：科室卡片弹窗、医生卡片弹窗、预约表单提交弹窗、咨询表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./宜宾市叙州区覃天中西医结合门诊部/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>山东利泰化工有限公司（新拟态）</h2>
+        <div class="meta">建议测试：产品/解决方案/新闻卡片弹窗、获取报价表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./山东利泰化工有限公司官网/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>广州小造电子商务有限公司（波普艺术）</h2>
+        <div class="meta">建议测试：类目卡片弹窗、商品卡片弹窗、上新订阅弹窗、联系表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./广州小造电子商务有限公司官网/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>海南创业爸爸众创空间有限公司（生成式艺术）</h2>
+        <div class="meta">建议测试：空间/孵化/活动卡片弹窗、活动报名弹窗、入驻表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./海南创业爸爸众创空间有限公司/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>海南海笙信息科技有限公司（赛博朋克）</h2>
+        <div class="meta">建议测试：产品/方案/案例卡片弹窗、演示申请表单提交弹窗、导航定位</div>
+        <div class="btns">
+          <a class="btn primary" href="./海南海笙信息科技有限公司官网/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>青岛瀚博泰服饰官网（酸性设计）</h2>
+        <div class="meta">建议测试：产品/服务卡片弹窗、Lookbook 图片弹窗、打样表单提交弹窗</div>
+        <div class="btns">
+          <a class="btn primary" href="./青岛瀚博泰服饰官网/index.html" target="_blank">打开官网</a>
+        </div>
+      </div>
+    </div>
+
+      <div class="tips">
+      <div><b>推荐自测方式</b>（更接近部署后的访问方式）：</div>
+      <ul>
+        <li>在当前 <code>外接系统</code> 目录打开命令行，运行 <code>python -m http.server 8080</code></li>
+        <li>浏览器访问 <code>http://localhost:8080/selftest.html</code>，逐个打开并点击测试</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+
